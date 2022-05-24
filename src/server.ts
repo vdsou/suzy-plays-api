@@ -9,11 +9,8 @@ const PORT = process.env.PORT;
 app.use(morgan("dev"));
 
 app.get("/", (req: Request, res: Response) => {
-  res.json({message: "Hello, world!"});
+  res.json({ message: "Hello, world!" });
 });
 
-console.log(app.listen)
+console.log(app.listen);
 app.listen(PORT, () => console.log(`⚡️[SERVER]: Server is up at port: ${PORT}`));
-export {
-  app
-}
