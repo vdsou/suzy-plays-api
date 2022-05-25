@@ -20,7 +20,8 @@
   },
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "dependencies": {
     "axios": "^0.27.2",
