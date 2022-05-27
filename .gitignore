@@ -1,4 +1,4 @@
 node_modules
 .env
 docker/docker-compose.yml
-ormconfig.json
+config/data-source.ts
