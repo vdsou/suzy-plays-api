@@ -1,9 +1,11 @@
 import md5 from "crypto-js/md5";
+import { sign } from "jsonwebtoken";
 import { User } from "../../entity/User";
 import { AppDataSource } from "../../config/data-source";
 import { UserSignUp } from "./dtos/user.signup.dtos";
 import { UserSignIn } from "./dtos/user.signin.dtos";
 import AppError from "../../shared/error/AppError";
+import authConfig from "../../config/auth";
 
 export default class UserService {
   async signUp(userData: UserSignUp) {
@@ -31,6 +33,16 @@ export default class UserService {
     if (!userExists) {
       throw new AppError("Unauthorized", 401);
     }
-    return userExists;
+    const { secret, expiresIn } = authConfig;
+    const token = sign(
+      {
+        id: userExists.id,
+        name: userExists.name,
+        username: userExists.username,
+      },
+      secret,
+      { expiresIn },
+    );
+    return token;
   }
 }
