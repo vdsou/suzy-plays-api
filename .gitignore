@@ -1,4 +1,4 @@
 node_modules
 .env
 docker/docker-compose.yml
-config/data-source.ts
+src/config/data-source.ts
