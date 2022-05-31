@@ -19,5 +19,5 @@ export class Command {
   updated_at: Date;
 
   @ManyToOne(() => User, (user) => user.id)
-  user_id: User;
+  user_id: String;
 }
