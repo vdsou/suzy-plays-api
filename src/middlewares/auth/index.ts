@@ -10,11 +10,9 @@ const userAuth = (req: Request, res: Response, next: NextFunction): void => {
     throw new AppError("Token not sent", 401);
   }
   const [, token] = authHeader.split(" ");
-  console.log(token);
 
   try {
     const decoded = verify(token, jwt.secret);
-    console.log(decoded);
     const { id, name, username } = decoded as ITokenPayload;
     req.user = {
       id,
