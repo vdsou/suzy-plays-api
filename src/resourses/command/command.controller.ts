@@ -11,7 +11,7 @@ export default class CommandController {
       playlist_title: commandData.playlistTitle,
       command_name: commandData.commandName,
     });
-    return res.status(201).json({ message: "Command created sucessfully", command });
+    return res.status(201).json({ message: "Command created successfully", command });
   }
 
   async list(req: Request, res: Response) {
@@ -38,7 +38,7 @@ export default class CommandController {
     const { id } = req.params;
     const commandService = new CommandService();
     await commandService.deleteById(id);
-    return res.status(200).json({ message: "Command deleted sucessfully" });
+    return res.status(200).json({ message: "Command deleted successfully" });
   }
 
   async updateById(req: Request, res: Response) {
@@ -47,6 +47,6 @@ export default class CommandController {
     const commandToUpdate = { command_name, playlist_title };
     const commandService = new CommandService();
     const command = await commandService.updateById(id, commandToUpdate);
-    return res.status(200).json({ message: "Command updated sucessfully", command });
+    return res.status(200).json({ message: "Command updated successfully", command });
   }
 }
