@@ -22,5 +22,5 @@ export class Track {
   updated_at: Date;
 
   @ManyToOne(() => Command, (command) => command.id)
-  command_id: Command;
+  command_id: string;
 }
