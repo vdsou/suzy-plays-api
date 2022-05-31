@@ -6,7 +6,7 @@ export default class UserController {
     const userPayload = req.body;
     const userService = new UserService();
     const user = await userService.signUp(userPayload);
-    return res.status(201).json({ message: "user created sucessfully!", user });
+    return res.status(201).json({ message: "user created successfully!", user });
   }
   async signIn(req: Request, res: Response) {
     const { username, password } = req.body;
