@@ -27,3 +27,17 @@ test("should return 401 if password or username is wrong", async () => {
     expect(error.response.status).toBe(401);
   }
 });
+
+test.only("should return 201", async () => {
+  const res = await axios({
+    method: "post",
+    url: `${api.BASE_URL}/user/signup`,
+    data: {
+      name: "test",
+      username: "test",
+      password: "test",
+      email: "test@email.com",
+    },
+  });
+  expect(res.status).toBe(201);
+});
