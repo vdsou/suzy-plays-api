@@ -6,5 +6,6 @@ const userController = new UserController();
 
 userRouter.post("/signup", userController.signUp);
 userRouter.post("/signin", userController.signIn);
+userRouter.delete("/delete/:id", userController.delete);
 
 export default userRouter;

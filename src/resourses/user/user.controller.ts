@@ -14,4 +14,10 @@ export default class UserController {
     const token = await userService.signIn({ username, password });
     return res.status(200).json({ message: "user is signed", token });
   }
+  async delete(req: Request, res: Response) {
+    const { id } = req.params;
+    const userService = new UserService();
+    const result = await userService.deleteById(id);
+    return res.status(200).json({ message: "User is deleted successfully", result });
+  }
 }
