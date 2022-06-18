@@ -15,7 +15,7 @@ export default class TrackService {
   }
   async list() {
     const trackRepository = AppDataSource.getRepository(Track);
-    const tracksExist = await trackRepository.find();
+    const tracksExist = await trackRepository.find({ relations: ["command"] });
     if (!tracksExist) {
       throw new AppError("No tracks found", 404);
     }
