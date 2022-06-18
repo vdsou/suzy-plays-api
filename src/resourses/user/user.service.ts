@@ -12,7 +12,6 @@ export default class UserService {
     const { username, password } = userData;
     const userRepository = AppDataSource.getRepository(User);
     const userExists = await userRepository.findOne({ where: { username } });
-
     if (userExists) {
       throw new AppError("User already exists!", 409);
     }
@@ -44,5 +43,17 @@ export default class UserService {
       { expiresIn },
     );
     return token;
+  }
+  async deleteById(id: string) {
+    const userRepository = AppDataSource.getRepository(User);
+    const userExists = await userRepository.findOne({ where: { id } });
+    if (userExists) {
+      try {
+        const res = await userRepository.delete(id);
+        return res;
+      } catch (error) {
+        throw new AppError("Something went wrong", 500);
+      }
+    }
   }
 }
