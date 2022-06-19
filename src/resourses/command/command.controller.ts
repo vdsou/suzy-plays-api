@@ -17,6 +17,7 @@ export default class CommandController {
   async list(req: Request, res: Response) {
     const commandService = new CommandService();
     const commands = await commandService.list();
+    console.log(req.user);
     return res.status(200).json(commands);
   }
 
@@ -36,17 +37,19 @@ export default class CommandController {
 
   async deleteById(req: Request, res: Response) {
     const { id } = req.params;
+    const userId = req.user.id;
     const commandService = new CommandService();
-    await commandService.deleteById(id);
+    await commandService.deleteById(id, userId);
     return res.status(200).json({ message: "Command deleted successfully" });
   }
 
   async updateById(req: Request, res: Response) {
     const { id } = req.params;
+    const userId = req.user.id;
     const { commandName: command_name, playlistTitle: playlist_title } = req.body;
     const commandToUpdate = { command_name, playlist_title };
     const commandService = new CommandService();
-    const command = await commandService.updateById(id, commandToUpdate);
+    const command = await commandService.updateById(id, commandToUpdate, userId);
     return res.status(200).json({ message: "Command updated successfully", command });
   }
 }

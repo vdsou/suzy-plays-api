@@ -43,33 +43,33 @@ export default class CommandService {
       throw new AppError("Command does not exist", 404);
     }
   }
-  async deleteById(command_id: string) {
+  async deleteById(commandId: string, userId: string) {
     const commandRepository = AppDataSource.getRepository(Command);
     try {
-      const commandExists = await commandRepository.findOne({ where: { id: command_id } });
-      if (!commandExists) {
+      const commandExists = await commandRepository.findOne({ where: { id: commandId } });
+      if (commandExists && commandExists.user_id === userId) {
+        await commandRepository.delete(commandId);
+      } else {
         throw new AppError("Command does not exist", 404);
       }
-      await commandRepository.delete(command_id);
-      return commandExists;
     } catch (error) {
       throw new AppError("Command does not exist", 404);
     }
   }
-  async updateById(command_id: string, commandToUpdate: IUpdateCommand) {
+  async updateById(commandId: string, commandToUpdate: IUpdateCommand, userId) {
     const commandRepository = AppDataSource.getRepository(Command);
     try {
-      const commandExists = await commandRepository.findOne({ where: { id: command_id } });
-      if (!commandExists) {
+      const commandExists = await commandRepository.findOne({ where: { id: commandId } });
+      if (commandExists && commandExists.user_id === userId) {
+        const command = commandRepository.save({
+          ...commandExists,
+          ...commandToUpdate,
+          updated_at: new Date(),
+        });
+        return command;
+      } else {
         throw new AppError("Command does not exist", 404);
       }
-
-      const command = commandRepository.save({
-        ...commandExists,
-        ...commandToUpdate,
-        updated_at: new Date(),
-      });
-      return command;
     } catch (error) {
       throw new AppError("Command does not exist", 404);
     }

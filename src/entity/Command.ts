@@ -21,7 +21,7 @@ export class Command {
   @Column()
   user_id: String;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: "user_id" })
   user: User;
 }
