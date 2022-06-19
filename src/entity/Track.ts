@@ -24,7 +24,7 @@ export class Track {
   @Column()
   command_id: string;
 
-  @ManyToOne(() => Command)
+  @ManyToOne(() => Command, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: "command_id" })
   command: Command;
 }
