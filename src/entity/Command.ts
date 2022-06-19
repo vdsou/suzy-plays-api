@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
 
 @Entity()
@@ -18,6 +18,10 @@ export class Command {
   @CreateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => User, (user) => user.id)
+  @Column()
   user_id: String;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: "user_id" })
+  user: User;
 }

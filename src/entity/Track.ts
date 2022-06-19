@@ -1,5 +1,5 @@
 import { Command } from "./Command";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Track {
@@ -21,6 +21,10 @@ export class Track {
   @CreateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => Command, (command) => command.id)
+  @Column()
   command_id: string;
+
+  @ManyToOne(() => Command)
+  @JoinColumn({ name: "command_id" })
+  command: Command;
 }
