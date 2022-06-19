@@ -1,5 +1,3 @@
-import { Command } from "../../../entity/Command";
-
 export interface ICreateTrack {
   track_title: string;
   image_url: string;

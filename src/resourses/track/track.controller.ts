@@ -10,7 +10,8 @@ export default class TrackController {
       duration: track.duration,
       command_id: track.commandId,
     };
-    const newTrack = await trackService.create(trackToAdd);
+    const user_id = req.user.id;
+    const newTrack = await trackService.create(trackToAdd, user_id);
     return res.status(201).json({ message: "Track created successfully", track: newTrack });
   }
   async list(req: Request, res: Response) {
@@ -32,8 +33,9 @@ export default class TrackController {
   }
   async deleteById(req: Request, res: Response) {
     const { id } = req.params;
+    const user_id = req.user.id;
     const trackService = new TrackService();
-    await trackService.deleteById(id);
+    await trackService.deleteById(id, user_id);
     return res.status(200).json({ message: "Track deleted successfully" });
   }
 }
