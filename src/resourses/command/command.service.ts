@@ -56,7 +56,7 @@ export default class CommandService {
       throw new AppError("Command does not exist", 404);
     }
   }
-  async updateById(commandId: string, commandToUpdate: IUpdateCommand, userId) {
+  async updateById(commandId: string, commandToUpdate: IUpdateCommand, userId: string) {
     const commandRepository = AppDataSource.getRepository(Command);
     try {
       const commandExists = await commandRepository.findOne({ where: { id: commandId } });

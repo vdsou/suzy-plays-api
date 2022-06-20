@@ -1,3 +1,4 @@
+import { UserUpdate } from "./dtos/user.update.dtos";
 import md5 from "crypto-js/md5";
 import { sign } from "jsonwebtoken";
 import { User } from "../../entity/User";
@@ -8,6 +9,14 @@ import AppError from "../../shared/error/AppError";
 import authConfig from "../../config/auth";
 
 export default class UserService {
+  async me(userId: string) {
+    const userRepository = AppDataSource.getRepository(User);
+    const userExists = await userRepository.findOne({ where: { id: userId } });
+    if (!userExists) {
+      throw new AppError("Something went wrong", 500);
+    }
+    return userExists;
+  }
   async signUp(userData: UserSignUp) {
     const { username, password } = userData;
     const userRepository = AppDataSource.getRepository(User);
@@ -54,6 +63,26 @@ export default class UserService {
       } catch (error) {
         throw new AppError("Something went wrong", 500);
       }
+    }
+  }
+  async updateById(UserDataTobeUpdated: UserUpdate, id: string) {
+    const userRepository = AppDataSource.getRepository(User);
+    const { username, password } = UserDataTobeUpdated;
+    const passwordHash = md5(password).toString();
+    const userExists = await userRepository.findOne({ where: { id } });
+    if (userExists) {
+      try {
+        userRepository.save({
+          ...userExists,
+          username: username ? username : userExists.username,
+          password: password ? passwordHash : userExists.password,
+          updated_at: new Date(),
+        });
+      } catch (error) {
+        throw new AppError("Something went wrong", 500);
+      }
+    } else {
+      throw new AppError("Something went wrong", 500);
     }
   }
 }

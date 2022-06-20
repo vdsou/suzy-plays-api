@@ -22,5 +22,16 @@ export const validateSignUp = [
 export const validateSignIn = [
   body("username").isString().trim(),
 
+  next
+];
+
+export const validateUserUpdate = [
+  body("username").trim(),
+  body("password")
+    .exists()
+    .optional({ checkFalsy: true })
+    .isLength({ min: 6 })
+    .withMessage("Password should be at least 6 characters."),
+
   next,
 ];
