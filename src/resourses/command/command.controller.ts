@@ -17,7 +17,6 @@ export default class CommandController {
   async list(req: Request, res: Response) {
     const commandService = new CommandService();
     const commands = await commandService.list();
-    console.log(req.user);
     return res.status(200).json(commands);
   }
 
