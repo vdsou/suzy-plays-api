@@ -26,4 +26,11 @@ export default class UserController {
     const result = await userService.deleteById(id);
     return res.status(200).json({ message: "User is deleted successfully", result });
   }
+  async update(req: Request, res: Response) {
+    const { id } = req.user;
+    const { username, password } = req.body;
+    const userService = new UserService();
+    const result = await userService.updateById({ username, password }, id);
+    return res.status(200).json({ message: "User is updated successfully", result });
+  }
 }

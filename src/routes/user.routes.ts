@@ -10,5 +10,6 @@ userRouter.get("/me", auth, userController.me);
 userRouter.post("/signup", validateSignUp, userController.signUp);
 userRouter.post("/signin", validateSignIn, userController.signIn);
 userRouter.delete("/delete/:id", auth, userController.delete);
+userRouter.patch("/update", auth, userController.update);
 
 export default userRouter;
