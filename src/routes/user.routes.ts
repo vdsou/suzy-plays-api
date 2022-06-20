@@ -6,6 +6,7 @@ import { validateSignIn, validateSignUp } from "../middlewares/validate";
 const userRouter: Router = express();
 const userController = new UserController();
 
+userRouter.get("/me", auth, userController.me);
 userRouter.post("/signup", validateSignUp, userController.signUp);
 userRouter.post("/signin", validateSignIn, userController.signIn);
 userRouter.delete("/delete/:id", auth, userController.delete);

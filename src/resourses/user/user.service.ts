@@ -8,6 +8,14 @@ import AppError from "../../shared/error/AppError";
 import authConfig from "../../config/auth";
 
 export default class UserService {
+  async me(userId: string) {
+    const userRepository = AppDataSource.getRepository(User);
+    const userExists = await userRepository.findOne({ where: { id: userId } });
+    if (!userExists) {
+      throw new AppError("User already exists!", 409);
+    }
+    return userExists;
+  }
   async signUp(userData: UserSignUp) {
     const { username, password } = userData;
     const userRepository = AppDataSource.getRepository(User);
