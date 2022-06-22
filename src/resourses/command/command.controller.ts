@@ -20,6 +20,13 @@ export default class CommandController {
     return res.status(200).json(commands);
   }
 
+  async getByUserId(req: Request, res: Response) {
+    const commandService = new CommandService();
+    const userId = req.user.id;
+    const commands = await commandService.getByUserId(userId);
+    return res.status(200).json(commands);
+  }
+
   async getByName(req: Request, res: Response) {
     const { commandName } = req.body;
     const commandService = new CommandService();

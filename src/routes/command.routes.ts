@@ -6,6 +6,7 @@ const commandRouter: Router = express();
 const commandController = new CommandController();
 
 commandRouter.get("/", commandController.list);
+commandRouter.get("/user", auth, commandController.getByUserId);
 commandRouter.get("/:id", commandController.getById);
 commandRouter.post("/", commandController.getByName);
 commandRouter.post("/create", auth, commandController.create);
