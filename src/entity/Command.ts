@@ -19,7 +19,7 @@ export class Command {
   updated_at: Date;
 
   @Column()
-  user_id: String;
+  user_id: string;
 
   @ManyToOne(() => User, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: "user_id" })

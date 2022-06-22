@@ -23,6 +23,15 @@ export default class CommandService {
     return commands;
   }
 
+  async getByUserId(userId: string) {
+    const commandRepository = AppDataSource.getRepository(Command);
+    const commandExists = await commandRepository.find({ where: { user_id: userId } });
+    if (!commandExists) {
+      throw new AppError("Command does not exist", 404);
+    }
+    return commandExists;
+  }
+
   async getByName(command_name: string) {
     const commandRepository = AppDataSource.getRepository(Command);
     const commandExists = await commandRepository.findOne({ where: { command_name } });

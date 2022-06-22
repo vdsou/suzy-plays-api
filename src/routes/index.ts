@@ -4,8 +4,8 @@ import commandRouter from "./command.routes";
 import trackRouter from "./track.routes";
 
 const routes: Router = express();
-routes.use("/user", userRouter);
-routes.use("/command", commandRouter);
-routes.use("/track", trackRouter);
+routes.use("/users", userRouter);
+routes.use("/commands", commandRouter);
+routes.use("/tracks", trackRouter);
 
 export default routes;
